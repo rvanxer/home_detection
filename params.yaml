@@ -1,0 +1,110 @@
+regions:
+    indianapolis:
+        state: Indiana
+        counties:
+        - Boone
+        - Hamilton
+        - Hancock
+        - Hendricks
+        - Johnson
+        - Madison
+        - Marion
+        - Morgan
+        - Shelby
+        bbox:
+        - -86.69586
+        - 39.338291
+        - -85.575541
+        - 40.379799
+        ping_dates: 2021-03-01 - 2021-03-15
+    austin:
+        state: Texas
+        counties:
+        - Bastrop
+        - Caldwell
+        - Hays
+        - Travis
+        - Williamson
+        bbox:
+        - -98.2976
+        - 29.630718
+        - -97.024461
+        - 30.904414
+        ping_dates: 2021-07-01 - 2021-07-15
+    houston:
+        state: Texas
+        counties:
+        - Austin
+        - Brazoria
+        - Chambers
+        - Fort Bend
+        - Galveston
+        - Harris
+        - Liberty
+        - Montgomery
+        - Waller
+        bbox:
+        - -96.62198
+        - 28.764837
+        - -94.353383
+        - 30.630284
+        ping_dates: 2021-07-01 - 2021-07-15
+pings:
+    max_error: 50
+    day_hours:
+        start: 6
+        end: 21
+    nighttime:
+        min_pings: 20
+    slot_size: 1800
+algorithms:
+    A0:
+        name: Simple centroid
+        description: Home location is the centroid of the all-time nighttime data.
+    A1:
+        name: All-time clustering
+        description: Home location is the center of the largest cluster of all-time
+            nighttime data based on MeanShift clustering.
+        meanshift:
+            clustering_radius: 500
+            bin_seeding: true
+            min_bin_freq: 5
+            max_iter: 30
+            cluster_all: false
+    A2:
+        name: All-time clustering
+        description: For each ½-hour slot, the pings are aggregated to just the mean
+            "super-ping". The created/filtered superpings are finally clustered and
+            the largest cluster center is chosen as the home location.
+        meanshift:
+            clustering_radius: 500
+            bin_seeding: true
+            min_bin_freq: 5
+            max_iter: 30
+            cluster_all: false
+    A2b:
+        name: Superping clustering with max rg
+        description: Same as A2 but with a maximum limit on radius of gyration of
+            each superping.
+        max_rg: 200
+metrics:
+    M1:
+        name: Residential detection rate (RDR)
+        description: RDR is the proportion of home locations within the city limit
+            that lie in a buffer of its residential area of given width.
+        buffers:
+        - 0
+        - 5
+        - 10
+        - 15
+        - 20
+        - 25
+        - 50
+        - 75
+        - 100
+        - 150
+        - 200
+        - 250
+        - 300
+        - 350
+        - 400
