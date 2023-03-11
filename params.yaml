@@ -74,7 +74,7 @@ algorithms:
     A2:
         name: All-time clustering
         description: For each ½-hour slot, the pings are aggregated to just the mean
-            "super-ping". The created/filtered superpings are finally clustered and
+            “super-ping“. The created/filtered superpings are finally clustered and
             the largest cluster center is chosen as the home location.
         meanshift:
             clustering_radius: 500
