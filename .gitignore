@@ -1,7 +1,13 @@
 code/__pycache__
 code/_old
 code/.ipynb_checkpoints
+code/cache
 code/Lei
 code/.key.json
 data
+_data
+datasets
+regions
 fig/_old
+fig
+nohup.out

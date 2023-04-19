@@ -1,23 +1,6 @@
 regions:
-    indianapolis:
-        state: Indiana
-        counties:
-        - Boone
-        - Hamilton
-        - Hancock
-        - Hendricks
-        - Johnson
-        - Madison
-        - Marion
-        - Morgan
-        - Shelby
-        bbox:
-        - -86.69586
-        - 39.338291
-        - -85.575541
-        - 40.379799
-        ping_dates: 2021-03-01 - 2021-03-15
     austin:
+        name: Austin
         state: Texas
         counties:
         - Bastrop
@@ -30,8 +13,26 @@ regions:
         - 29.630718
         - -97.024461
         - 30.904414
-        ping_dates: 2021-07-01 - 2021-07-15
+    baton_rouge:
+        name: Baton Rouge
+        state: Louisiana
+        counties:
+        - Ascension
+        - East Baton Rouge
+        - East Feliciana
+        - Iberville
+        - Livingston
+        - Pointe Coupee
+        - St. Helena
+        - West Baton Rouge
+        - West Feliciana
+        bbox:
+        - -91.823072
+        - 30.02556
+        - -90.47368
+        - 31.044794
     houston:
+        name: Houston
         state: Texas
         counties:
         - Austin
@@ -48,63 +49,79 @@ regions:
         - 28.764837
         - -94.353383
         - 30.630284
-        ping_dates: 2021-07-01 - 2021-07-15
-pings:
-    max_error: 50
-    day_hours:
-        start: 6
-        end: 21
-    nighttime:
-        min_pings: 20
-    slot_size: 1800
-algorithms:
-    A0:
-        name: Simple centroid
-        description: Home location is the centroid of the all-time nighttime data.
-    A1:
-        name: All-time clustering
-        description: Home location is the center of the largest cluster of all-time
-            nighttime data based on MeanShift clustering.
-        meanshift:
-            clustering_radius: 500
-            bin_seeding: true
-            min_bin_freq: 5
-            max_iter: 30
-            cluster_all: false
-    A2:
-        name: All-time clustering
-        description: For each ½-hour slot, the pings are aggregated to just the mean
-            “super-ping“. The created/filtered superpings are finally clustered and
-            the largest cluster center is chosen as the home location.
-        meanshift:
-            clustering_radius: 500
-            bin_seeding: true
-            min_bin_freq: 5
-            max_iter: 30
-            cluster_all: false
-    A2b:
-        name: Superping clustering with max rg
-        description: Same as A2 but with a maximum limit on radius of gyration of
-            each superping.
-        max_rg: 200
-metrics:
-    M1:
-        name: Residential detection rate (RDR)
-        description: RDR is the proportion of home locations within the city limit
-            that lie in a buffer of its residential area of given width.
-        buffers:
-        - 0
-        - 5
-        - 10
-        - 15
-        - 20
-        - 25
-        - 50
-        - 75
-        - 100
-        - 150
-        - 200
-        - 250
-        - 300
-        - 350
-        - 400
+    indianapolis:
+        name: Indianapolis
+        state: Indiana
+        counties:
+        - Boone
+        - Brown
+        - Hamilton
+        - Hancock
+        - Hendricks
+        - Johnson
+        - Madison
+        - Marion
+        - Morgan
+        - Putnam
+        - Shelby
+        bbox:
+        - -87.014727
+        - 39.048357
+        - -85.575541
+        - 40.379799
+    san_antonio:
+        name: San Antonio
+        state: Texas
+        counties:
+        - Atascosa
+        - Bandera
+        - Bexar
+        - Comal
+        - Guadalupe
+        - Kendall
+        - Medina
+        - Wilson
+        bbox:
+        - -99.603323
+        - 28.612658
+        - -97.630985
+        - 30.138954
+datasets:
+    D1:
+        region: baton_rouge
+        start: '2021-08-01'
+        end: '2021-08-25'
+    D2:
+        region: baton_rouge
+        start: '2021-08-26'
+        end: '2021-09-07'
+    D3:
+        region: baton_rouge
+        start: '2021-09-08'
+        end: '2021-11-30'
+    D4:
+        region: indianapolis
+        start: '2020-03-01'
+        end: '2020-03-15'
+    D5:
+        region: indianapolis
+        start: '2020-03-16'
+        end: '2020-03-31'
+    D6:
+        region: indianapolis
+        start: '2020-03-01'
+        end: '2020-03-31'
+    D7:
+        region: austin
+        start: '2021-07-01'
+        end: '2021-07-07'
+    D8:
+        region: houston
+        start: '2021-07-01'
+        end: '2021-07-07'
+filters:
+    all_pings:
+        max_gps_error (m): 50
+        max_speed (m/s): 50
+        max_acceleration (m/s2): 10
+        max_deceleration (m/s2): 10
