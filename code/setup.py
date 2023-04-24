@@ -1,8 +1,7 @@
-import sys
-sys.path.insert(0, '/home/umni2/a/umnilab/users/verma99/mk/mobilkit')
+from mobilkit.umni import Project
 import mobilkit.utils as U
 
-P = U.Project('..')
+P = Project('..')
 
 class Region:
     """ A simple class for handling study regions (mostly MSAs). """
@@ -64,4 +63,4 @@ class Dataset:
     def load(key, region=None):
         x = P.params.get(f'datasets.{key}')
         rgn = region or Region.load(x['region'])
-        return Dataset(key, rgn, x['start_date'], x['end_date'])
+        return Dataset(key, rgn, x['start'], x['end'])

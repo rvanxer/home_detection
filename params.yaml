@@ -125,3 +125,21 @@ filters:
         max_speed (m/s): 50
         max_acceleration (m/s2): 10
         max_deceleration (m/s2): 10
+    min_total_nightly_pts: 10
+    day_hours:
+    - 9
+    - 21
+    base_day_hours:
+    - 7
+    - 19
+algorithms:
+    meanshift:
+        radius: 250
+        bin_seeding: true
+        min_bin_freq: 2
+        max_iter: 50
+        cluster_all: false
+    superping:
+        slot_size: 1800
+    grid_frequency:
+        cell_size: 20
