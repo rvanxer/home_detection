@@ -49,10 +49,8 @@ class MeanShift():
             bin_sizes[tuple(binned_point)] += 1
 
         # Select only those bins as seeds which have enough members
-        bin_seeds = np.array(
-            [point for point, freq in bin_sizes.items() if freq >= min_bin_freq],
-            dtype=np.float32,
-        )
+        seeds = [point for point, freq in bin_sizes.items() if freq >= min_bin_freq]
+        bin_seeds = np.array(seeds, dtype=np.float32)
         if len(bin_seeds) == len(X):
             return X
         bin_seeds = bin_seeds * bin_size
@@ -73,10 +71,8 @@ class MeanShift():
             my_old_mean = my_mean  # save the old mean
             my_mean = np.mean(points_within, axis=0)
             # If converged or at max_iter, adds the cluster
-            if (
-                np.linalg.norm(my_mean - my_old_mean) < stop_thresh
-                or completed_iterations == max_iter
-            ):
+            delta = np.linalg.norm(my_mean - my_old_mean)
+            if delta < stop_thresh or completed_iterations == max_iter:
                 break
             completed_iterations += 1
         return tuple(my_mean), len(points_within)
