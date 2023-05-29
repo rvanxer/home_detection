@@ -13,7 +13,7 @@ struct Region
     root::String
     datasets::Set{Any}
 
-    function Region(key::String, root = "$ROOT/regions")
+    function Region(key::String, root::String = "$ROOT/regions")
         x = YAML.load_file("$root/$key/info.yaml")
         Region(x["name"], x["state"], x["counties"])
     end
@@ -40,7 +40,7 @@ struct Dataset
     dates::StepRange{Date, Day}
     root::String
 
-    function Dataset(key::String, root = "$ROOT/datasets")
+    function Dataset(key::String, root::String = "$ROOT/datasets")
         x = YAML.load_file("$root/$key/info.yaml")
         Dataset(key, x["region"], x["startDate"], x["endDate"])
     end

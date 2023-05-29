@@ -1,7 +1,7 @@
 using Dates
 
 const global MK = "/home/umni2/a/umnilab/users/verma99/mk"
-const global ROOT = "$MK/home_detection"
+const global ROOT = "$MK/home_detection/julia"
 
 # Unit conversion factors
 const global M2FT = 3.28084 # meter to feet
