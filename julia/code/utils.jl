@@ -1,7 +1,12 @@
 using Dates
+using DataFrames
+using PyCall
 
 const global MK = "/home/umni2/a/umnilab/users/verma99/mk"
 const global ROOT = "$MK/home_detection/julia"
+
+# Python packages
+const global pd = pyimport("pandas")
 
 # Unit conversion factors
 const global M2FT = 3.28084 # meter to feet
@@ -13,13 +18,24 @@ const global KM2MI = 1 / 1.60934  # kilometer to mile
 const global SQMI2SQM = 2.58998811e6  # sq. mile to sq. meter
 const global SQM2SQMI = 1 / 2.58998811e6  # sq. meter to sq. mile
 
+# Format conversions
+"Convert a string or date to date"
 toDate(x::Date) = x
-
-"Convert a string to date"
 toDate(x::String, fmt = "y-m-d") = Date(x, DateFormat(fmt))
 
 "Convert a date to string"
 toStr(x::Date, fmt = "yyyy-mm-dd") = Dates.format(x, fmt)
+
+"Convert a pandas dataframe to julia dataframe"
+# source: https://bit.ly/3MIh7nt
+function pd2df(df_pd)
+    df = DataFrame()
+    for col in df_pd.columns
+        df[!, col] = getproperty(df_pd, col).values
+    end
+    df
+end
+
 
 "Normalize an array of values to fit in the range [0, 1]"
 function normalize(x::Vector, vmin = nothing, vmax = nothing)
@@ -31,4 +47,3 @@ end
 "Create parent directory of file"
 mkfile(path::AbstractString) = joinpath(mkpath(dirname(path)), basename(path))
 # mkfile = lambda path: Path(path).mkdir(parents=True, recurse=True) / Path(path).name
-

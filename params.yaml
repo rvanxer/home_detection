@@ -140,3 +140,23 @@ algorithms:
         slot_size: 1800
     grid_frequency:
         cell_size: 20
+    A0:
+        name: Centroid method
+        color: '#10ae01'
+        marker: .
+    A1:
+        name: All-time clustering method
+        color: '#047cbd'
+        marker: v
+    A2:
+        name: Binned clustering method
+        color: '#4930c7'
+        marker: ^
+    A3:
+        name: Stay-point method
+        color: '#ff7e81'
+        marker: '*'
+    A4:
+        name: Grid frequency method
+        color: '#c92ad5'
+        marker: d

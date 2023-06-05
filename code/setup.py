@@ -5,7 +5,7 @@ P = Project('..')
 
 class Region:
     """ A simple class for handling study regions (mostly MSAs). """
-    def __init__(self, name: str, state: str, counties: list[str], 
+    def __init__(self, name: str, state: str, counties: list, 
                  geocode=None, root=P.root / 'regions'):
         self.name = name
         self.state = state
@@ -59,8 +59,34 @@ class Dataset:
     def __repr__(self):
         return f'Dataset {self.key}({self.region.name}: {self.fmt_dates()})'
 
+    def math(self, bold=False):
+        label = '%s_%s' % (self.key[0], self.key[1])
+        return r'$\mathbf{%s}$' % label if bold else r'$%s$' % label
+    
     @staticmethod
     def load(key, region=None):
         x = P.params.get(f'datasets.{key}')
         rgn = region or Region.load(x['region'])
         return Dataset(key, rgn, x['start'], x['end'])
+    
+    
+class HDA:
+    def __init__(self, key, name=None, color=None, marker=None):
+        self.key = key
+        self.name = name
+        self.color = color
+        self.marker = marker
+        P.params.set({'algorithms': {key: {
+            'name': name, 'color': color, 'marker': marker}}})
+
+    def __repr__(self):
+        return self.key
+    
+    def math(self, bold=False):
+        label = '%s_%s' % (self.key[0], self.key[1])
+        return r'$\mathbf{%s}$' % label if bold else r'$%s$' % label
+
+    @staticmethod
+    def load(key):
+        x = P.params.get(f'algorithms.{key}')
+        return HDA(key, **x)

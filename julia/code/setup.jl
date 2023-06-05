@@ -61,3 +61,18 @@ struct Dataset
 end
 
 Base.show(io::IO, ds::Dataset) = print(io, "Dataset($(ds.key))")
+
+struct HDA
+    """ A simple container for a home detection algorithm (HDA). """
+    key::String
+    name::String
+    color::String
+    marker::String
+
+    function HDA(key::String, color::String, marker::Char='.')
+        new(key, color, marker)
+    end
+end
+
+Base.show(io::IO, a::HDA) = print(io, a.key)
+
