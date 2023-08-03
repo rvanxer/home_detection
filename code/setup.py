@@ -1,5 +1,6 @@
-from mobilkit.umni import Project
-import mobilkit.utils as U
+import sys
+sys.path.insert(0, '/home/umni2/a/umnilab/users/verma99/mk/mobilkit')
+from mobilkit.umni import *
 
 P = Project('..')
 
