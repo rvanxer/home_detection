@@ -21,7 +21,7 @@ struct Region
     function Region(name, state, counties, geocode = nothing, 
             root = "$ROOT/regions")
         key = lowercase(replace(name, " " => "_"))
-        geocode = geocode == nothing ? "$name, $state" : geocode
+        geocode = geocode === nothing ? "$name, $state" : geocode
         root = "$root/$key"
         info = Dict(:name => name, :state => state, :counties => counties)
         YAML.write_file(mkfile("$root/info.yaml"), info)

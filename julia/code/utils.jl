@@ -39,8 +39,8 @@ end
 
 "Normalize an array of values to fit in the range [0, 1]"
 function normalize(x::Vector, vmin = nothing, vmax = nothing)
-    vmin = vmin == nothing ? minimum(x) : vmin
-    vmax = vmax == nothing ? maximum(x) : vmax
+    vmin = vmin === nothing ? minimum(x) : vmin
+    vmax = vmax === nothing ? maximum(x) : vmax
     (x .- vmin) ./ (vmax - vmin)
 end
 
